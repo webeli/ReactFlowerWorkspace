@@ -6,10 +6,10 @@ class WorkspaceMenu extends Component {
     render() {
         return (
             <ul>
-                <li><Link to="/dashboard">Dashboard</Link></li>
-                <li><Link to="/orders">Orders</Link></li>
-                <li><Link to="/products">Products</Link></li>
-                <li><Link to="/settings">Settings</Link></li>
+                <li><Link to="/dashboard">Överblick</Link></li>
+                <li><Link to="/orders">Ordrar</Link></li>
+                <li><Link to="/products">Produkter</Link></li>
+                <li><Link to="/settings">Inställningar</Link></li>
             </ul>
         );
     }
