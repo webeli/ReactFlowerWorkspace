@@ -1,3 +1,13 @@
-/**
- * Created by Elias Hansén on 10/13/2016.
- */
+import React, { Component } from 'react';
+
+class Dashboard extends Component {
+    render() {
+        return (
+            <div>
+                <h4>Dashboard</h4>
+            </div>
+        );
+    }
+}
+
+export default Dashboard;
