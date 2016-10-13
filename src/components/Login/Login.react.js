@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { Grid, Button, Form, FormControl,FormGroup, Col } from 'react-bootstrap';
 import * as authActions from '../../actions/authActions';
 
@@ -46,6 +47,9 @@ class Login extends Component {
                                 <Button type="submit">
                                     Logga in
                                 </Button>
+                            </FormGroup>
+                            <FormGroup>
+                                <p>Florist och inget konto? <Link to="/register">Registrera!</Link></p>
                             </FormGroup>
                         </Form>
                     </Col>

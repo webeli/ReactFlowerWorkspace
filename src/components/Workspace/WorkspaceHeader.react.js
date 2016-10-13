@@ -11,7 +11,7 @@ class WorkspaceHeader extends Component {
             <Navbar>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <a href="#">BLOOMDO Workspace</a>
+                        <a>BLOOMDO Workspace</a>
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>

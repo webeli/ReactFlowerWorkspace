@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 
 import { Navbar } from 'react-bootstrap';
 
-class LoginHeader extends Component {
+class RegisterHeader extends Component {
     render() {
         return (
             <Navbar>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <a>BLOOMDO Inloggning</a>
+                        <a>BLOOMDO Registrering (Florister)</a>
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
@@ -17,4 +17,4 @@ class LoginHeader extends Component {
     }
 }
 
-export default LoginHeader;
+export default RegisterHeader;
