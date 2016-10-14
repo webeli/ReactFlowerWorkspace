@@ -31,12 +31,10 @@ class Products extends Component {
     render() {
         let modalNewProductForm = () => this.setState({ modalNewProductForm: false });
 
-        let productList = null;
         let products = this.props.products;
-        if (products) {
-            productList = Object.keys(products).map(product => {
+        const productList = Object.keys(products).map(product => {
                 return (
-                    <Col md={4} key={product}>
+                    <Col md={3} key={product}>
                         <Panel header={products[product].name} eventKey={product}>
                             <p>{products[product].description || 'No description'}</p>
                             <p>{products[product].price || 'No price'}</p>
@@ -50,19 +48,23 @@ class Products extends Component {
                     </Col>
                 )
             });
-        }
+
         return (
             <div>
                 <ModalNewProductForm onSubmit={this.addProduct} show={this.state.modalNewProductForm} onHide={modalNewProductForm} />
                 <Col xs={12} md={12}>
                     <Well>
                         <h4>Produkter</h4>
-                        <Button bsStyle="default" onClick={()=>this.setState({ modalNewProductForm: true })}>+ Ny produkt</Button>
                     </Well>
                 </Col>
                 <Col xs={12} md={12}>
-                    {productList}
+                    <Well>
+                        <Button bsStyle="primary" onClick={()=>this.setState({ modalNewProductForm: true })}>+ Ny produkt</Button>
+                    </Well>
                 </Col>
+                <div>
+                    {productList}
+                </div>
             </div>
         );
     }

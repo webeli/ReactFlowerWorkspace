@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-
+import { ListGroupItem } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 class WorkspaceMenu extends Component {
     render() {
         return (
-            <ul>
-                <li><Link to="/dashboard">Överblick</Link></li>
-                <li><Link to="/orders">Ordrar</Link></li>
-                <li><Link to="/products">Produkter</Link></li>
-                <li><Link to="/settings">Inställningar</Link></li>
-            </ul>
+            <div>
+                <Link to="/dashboard"><ListGroupItem>Överblick</ListGroupItem></Link>
+                <Link to="/orders"><ListGroupItem>Ordrar</ListGroupItem></Link>
+                <Link to="/products"><ListGroupItem>Produkter</ListGroupItem></Link>
+                <Link to="/settings"><ListGroupItem>Inställningar</ListGroupItem></Link>
+            </div>
         );
     }
 }

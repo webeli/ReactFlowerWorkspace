@@ -1,5 +1,6 @@
-.well {
-  background-image:linear-gradient(to bottom, #fff 0%, #f8f8f8 100%)!important;
+.well, .panel-heading {
+  background-image:none!important;
+  background-color:#FFF!important;
 }
 .b-input {
     width:100%;
