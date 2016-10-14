@@ -12,8 +12,8 @@ export function registerUser(name, email, password) {
     return function(dispatch) {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(function(user){
-                const floristRef = firebase.database().ref("florist").child(user.uid);
-                floristRef.set({ floristName: name });
+                const floristRef = firebase.database().ref("florists").child(user.uid).child("settings_account");
+                floristRef.set({ name: name });
                 dispatch(updateAuthData(user));
             }).catch(function(error) {
                 console.log("error", error);
@@ -43,10 +43,14 @@ export function onAuthStateChanged() {
     return function(dispatch, getState) {
         firebase.auth().onAuthStateChanged(function(user) {
             dispatch(updateAuthData(user));
-            //const state = getState();
-            //&& state.routing.locationBeforeTransitions.pathname === "/"
+            const state = getState();
+            const loginPage = state.routing.locationBeforeTransitions.pathname === "/";
+            const registerPage = state.routing.locationBeforeTransitions.pathname === "/register";
+
             if (user) {
-                dispatch(push('/dashboard'));
+                if (loginPage || registerPage) {
+                    dispatch(push('/dashboard'));
+                }
             } else if (!user) {
                 dispatch(push('/'));
             }

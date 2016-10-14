@@ -9,15 +9,21 @@ export function loadAllProjectsSuccess(projects) {
 }
 export function getProducts(uid) {
     return function(dispatch) {
-
+        const productsRefs = firebase.database().ref('florists').child(uid).child('products');
+        productsRefs.on('value', (snap) => {
+            console.log(snap.val());
+            dispatch({
+                type: 'UPDATE_PRODUCTS',
+                payload: snap.val()
+            });
+        });
     }
 }
 
 export function addProduct(uid, data) {
     return function() {
-        const productsRefs = firebase.database().ref('florist').child(uid).child('productsRefs');
-        const productKey = productsRefs.push().key;
-        productsRefs.child(productKey).set(productKey);
+        const productsRefs = firebase.database().ref('florists').child(uid).child('products');
+        productsRefs.push({...data});
 
         console.log("Added produkt!"); // TODO: implement toaster service
     }

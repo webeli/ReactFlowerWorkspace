@@ -11,13 +11,24 @@ import { Col, Well } from 'react-bootstrap';
 class Settings extends Component {
 
     componentDidMount() {
-        if (this.props.auth.uid) {
-            this.props.getSettingsDelivery(this.props.auth.uid);
+        if (this.props.uid) {
+            this.props.getSettingsDelivery(this.props.uid);
+            this.props.getSettingsAccount(this.props.uid);
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.uid) {
+            this.props.getSettingsDelivery(nextProps.uid);
+            this.props.getSettingsAccount(nextProps.uid);
         }
     }
 
+    updateSettingsAccount = (values) => {
+        this.props.updateSettingsAccount(this.props.uid, values);
+    };
+
     updateSettingsDelivery = (values) => {
-        this.props.updateSettingsDelivery(this.props.auth.uid, values);
+        this.props.updateSettingsDelivery(this.props.uid, values);
     };
 
     render() {
@@ -30,7 +41,7 @@ class Settings extends Component {
                 </Col>
                 <Col xs={12} md={6}>
                     <Well>
-                        <SettingsAccountForm />
+                        <SettingsAccountForm onSubmit={this.updateSettingsAccount} />
                     </Well>
                 </Col>
                 <Col xs={12} md={6}>
@@ -45,11 +56,14 @@ class Settings extends Component {
 
 function mapStateToProps(state) {
     return {
-        auth: state.auth
+        uid: state.auth.uid
     };
 }
 function mapDispatchToProps(dispatch) {
     return {
+        getSettingsAccount: (uid) => dispatch(settingsActions.getSettingsAccount(uid)),
+        updateSettingsAccount: (uid, data) => dispatch(settingsActions.updateSettingsAccount(uid, data)),
+
         getSettingsDelivery: (uid) => dispatch(settingsActions.getSettingsDelivery(uid)),
         updateSettingsDelivery: (uid, data) => dispatch(settingsActions.updateSettingsDelivery(uid, data))
     }

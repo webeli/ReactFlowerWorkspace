@@ -5,7 +5,7 @@ import * as productsActions from '../../../actions/productsActions';
 
 import ModalNewProductForm from './ModalNewProductForm.react';
 
-import { Col, Well, Button } from 'react-bootstrap';
+import { Col, Well, Button, ButtonToolbar, Panel } from 'react-bootstrap';
 
 class Products extends Component {
 
@@ -16,9 +16,9 @@ class Products extends Component {
         };
     }
 
-    componentDidMount() {
-        if (this.props.auth.uid) {
-            this.props.getProducts(this.props.auth.uid);
+    componentWillMount() {
+        if (this.props.uid) {
+            this.props.getProducts(this.props.uid);
         }
     }
 
@@ -30,6 +30,27 @@ class Products extends Component {
 
     render() {
         let modalNewProductForm = () => this.setState({ modalNewProductForm: false });
+
+        let productList = null;
+        let products = this.props.products;
+        if (products) {
+            productList = Object.keys(products).map(product => {
+                return (
+                    <Col md={4} key={product}>
+                        <Panel header={products[product].name} eventKey={product}>
+                            <p>{products[product].description || 'No description'}</p>
+                            <p>{products[product].price || 'No price'}</p>
+                            <img src={products[product].image} height="50px" width="50px" alt={products[product].title}/>
+                            <p></p>
+                            <ButtonToolbar>
+                                <Button bsSize="xsmall" bsStyle="danger">Delete</Button>
+                                <Button bsSize="xsmall" bsStyle="primary">Edit</Button>
+                            </ButtonToolbar>
+                        </Panel>
+                    </Col>
+                )
+            });
+        }
         return (
             <div>
                 <ModalNewProductForm onSubmit={this.addProduct} show={this.state.modalNewProductForm} onHide={modalNewProductForm} />
@@ -39,10 +60,8 @@ class Products extends Component {
                         <Button bsStyle="default" onClick={()=>this.setState({ modalNewProductForm: true })}>+ Ny produkt</Button>
                     </Well>
                 </Col>
-                <Col xs={12} md={6}>
-                    <Well>
-                        Produkter...
-                    </Well>
+                <Col xs={12} md={12}>
+                    {productList}
                 </Col>
             </div>
         );
@@ -51,7 +70,9 @@ class Products extends Component {
 
 function mapStateToProps(state) {
     return {
-        auth: state.auth
+        auth: state.auth,
+        uid: state.auth.uid,
+        products: state.products
     };
 }
 function mapDispatchToProps(dispatch) {
