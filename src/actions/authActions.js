@@ -42,7 +42,7 @@ export function signOutUser() {
 export function onAuthStateChanged() {
     return function(dispatch, getState) {
         firebase.auth().onAuthStateChanged(function(user) {
-            console.log(user);
+            dispatch(updateAuthData(user));
             //const state = getState();
             //&& state.routing.locationBeforeTransitions.pathname === "/"
             if (user) {

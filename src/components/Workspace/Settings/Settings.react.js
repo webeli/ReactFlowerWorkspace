@@ -1,8 +1,25 @@
 import React, { Component } from 'react';
 
-import { Button, Form, FormControl,FormGroup, Col, Well } from 'react-bootstrap';
+import SettingsDelivery from './SettingsDelivery.react';
+import SettingsAccount from './SettingsAccount.react';
+
+import { connect } from 'react-redux';
+import * as settingsActions from '../../../actions/settingsActions';
+
+import { Col, Well } from 'react-bootstrap';
 
 class Settings extends Component {
+
+    componentDidMount() {
+        if (this.props.auth.uid) {
+            this.props.getSettingsDelivery(this.props.auth.uid);
+        }
+    }
+
+    updateSettingsDelivery = (values) => {
+        this.props.updateSettingsDelivery(this.props.auth.uid, values);
+    };
+
     render() {
         return (
             <div>
@@ -13,53 +30,12 @@ class Settings extends Component {
                 </Col>
                 <Col xs={12} md={6}>
                     <Well>
-                        <h4>Kontoinställningar</h4>
-                            <Form>
-                                <FormGroup>
-                                    <FormControl type="text" placeholder="Företagsnamn" />
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormControl type="text" placeholder="Stad" />
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormControl type="text" placeholder="Adress" />
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormControl type="text" placeholder="Telefonnummer" />
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormControl type="text" placeholder="Leveranstider" />
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormControl type="text" placeholder="Leveransavgift" />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Button type="submit">
-                                        Updatera
-                                    </Button>
-                                </FormGroup>
-                            </Form>
+                        <SettingsAccount />
                     </Well>
                 </Col>
                 <Col xs={12} md={6}>
                     <Well>
-                        <h4>Leveransinställningar</h4>
-                        <Form>
-                            <FormGroup>
-                                <FormControl type="text" placeholder="Latitude" />
-                            </FormGroup>
-                            <FormGroup>
-                                <FormControl type="text" placeholder="Longitude" />
-                            </FormGroup>
-                            <FormGroup>
-                                <FormControl type="text" placeholder="Radius" />
-                            </FormGroup>
-                            <FormGroup>
-                                <Button type="submit">
-                                    Updatera
-                                </Button>
-                            </FormGroup>
-                        </Form>
+                        <SettingsDelivery onSubmit={this.updateSettingsDelivery} />
                     </Well>
                 </Col>
             </div>
@@ -67,4 +43,15 @@ class Settings extends Component {
     }
 }
 
-export default Settings;
+function mapStateToProps(state) {
+    return {
+        auth: state.auth
+    };
+}
+function mapDispatchToProps(dispatch) {
+    return {
+        getSettingsDelivery: (uid) => dispatch(settingsActions.getSettingsDelivery(uid)),
+        updateSettingsDelivery: (uid, data) => dispatch(settingsActions.updateSettingsDelivery(uid, data))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);
