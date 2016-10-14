@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { Button, FormGroup } from 'react-bootstrap';
 
-class SettingsDelivery extends Component {
+class SettingsDeliveryForm extends Component {
 
     render() {
         return (
@@ -30,14 +30,14 @@ class SettingsDelivery extends Component {
     }
 }
 
-SettingsDelivery = reduxForm({
-    form: 'SettingsDelivery' // a unique name for this form
-})(SettingsDelivery);
+SettingsDeliveryForm = reduxForm({
+    form: 'SettingsDeliveryForm' // a unique name for this form
+})(SettingsDeliveryForm);
 
-SettingsDelivery = connect(
+SettingsDeliveryForm = connect(
     state => ({
         initialValues: state.settings.settingsDelivery // pull initial values from account reducer
     })
-)(SettingsDelivery);
+)(SettingsDeliveryForm);
 
-export default (SettingsDelivery);
+export default (SettingsDeliveryForm);

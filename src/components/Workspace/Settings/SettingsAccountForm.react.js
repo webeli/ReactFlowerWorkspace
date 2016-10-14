@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 
 import { Button, Form, FormControl,FormGroup } from 'react-bootstrap';
 
-class SettingsAccount extends Component {
+class SettingsAccountForm extends Component {
     render() {
         return (
             <div>
+                <h4>Kontoinställningar</h4>
                 <Form>
                     <FormGroup>
                         <FormControl type="text" placeholder="Företagsnamn" />
@@ -36,4 +37,4 @@ class SettingsAccount extends Component {
     }
 }
 
-export default SettingsAccount;
+export default SettingsAccountForm;

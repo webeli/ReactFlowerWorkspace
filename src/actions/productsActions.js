@@ -7,10 +7,24 @@ export function loadAllProjectsSuccess(projects) {
         payload: projects
     }
 }
-export function getAllProducts(floristId) {
+export function getProducts(uid) {
     return function(dispatch) {
-        firebase.database().ref(floristId).child('products').on('value', (snap) => {
-            dispatch(loadAllProjectsSuccess(snap.val()));
-    });
+
+    }
+}
+
+export function addProduct(uid, data) {
+    return function() {
+        const productsRefs = firebase.database().ref('florist').child(uid).child('productsRefs');
+        const productKey = productsRefs.push().key;
+        productsRefs.child(productKey).set(productKey);
+
+        console.log("Added produkt!"); // TODO: implement toaster service
+    }
+}
+
+export function updateProduct(uid) {
+    return function(dispatch) {
+
     }
 }

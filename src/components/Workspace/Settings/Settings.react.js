@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import SettingsDelivery from './SettingsDelivery.react';
-import SettingsAccount from './SettingsAccount.react';
+import SettingsDeliveryForm from './SettingsDeliveryForm.react';
+import SettingsAccountForm from './SettingsAccountForm.react';
 
 import { connect } from 'react-redux';
 import * as settingsActions from '../../../actions/settingsActions';
@@ -30,12 +30,12 @@ class Settings extends Component {
                 </Col>
                 <Col xs={12} md={6}>
                     <Well>
-                        <SettingsAccount />
+                        <SettingsAccountForm />
                     </Well>
                 </Col>
                 <Col xs={12} md={6}>
                     <Well>
-                        <SettingsDelivery onSubmit={this.updateSettingsDelivery} />
+                        <SettingsDeliveryForm onSubmit={this.updateSettingsDelivery} />
                     </Well>
                 </Col>
             </div>
