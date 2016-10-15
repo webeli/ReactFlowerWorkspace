@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Button, FormGroup, Modal } from 'react-bootstrap';
 
-class SettingsDelivery extends Component {
+class ModalNewProductForm extends Component {
 
     render() {
         return (
@@ -36,8 +36,8 @@ class SettingsDelivery extends Component {
     }
 }
 
-SettingsDelivery = reduxForm({
+ModalNewProductForm = reduxForm({
     form: 'NewProductForm' // a unique name for this form
-})(SettingsDelivery);
+})(ModalNewProductForm);
 
-export default (SettingsDelivery);
+export default (ModalNewProductForm);
