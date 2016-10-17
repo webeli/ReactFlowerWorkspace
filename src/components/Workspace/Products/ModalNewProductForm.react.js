@@ -4,11 +4,20 @@ import { Button, FormGroup, Modal } from 'react-bootstrap';
 
 const validate = values => {
     console.log(values);
-    const errors = {}
+    const errors = {};
     if (!values.name) {
         errors.name = 'Required'
     } else if (values.name.length > 15) {
         errors.name = 'Must be 15 characters or less'
+    }
+    if (!values.image) {
+        errors.image = 'Required'
+    }
+    if (!values.description) {
+        errors.description = 'Required'
+    }
+    if (!values.price) {
+        errors.price = 'Required'
     }
     return errors
 };
@@ -34,16 +43,16 @@ class ModalNewProductForm extends Component {
                 <Modal.Body>
                     <form onSubmit={this.props.handleSubmit}>
                         <FormGroup>
-                            <Field className="b-input" name="name" placeholder="Namn" component={renderField} type="text" required/>
+                            <Field name="name" placeholder="Namn" component={renderField} type="text" required/>
                         </FormGroup>
                         <FormGroup>
-                            <Field className="b-input" name="image" placeholder="Bild" component="input" type="text" required/>
+                            <Field name="image" placeholder="Bild" component={renderField} type="text" required/>
                         </FormGroup>
                         <FormGroup>
-                            <Field className="b-input" name="description" placeholder="Beskrivning" component="input" type="text" required/>
+                            <Field name="description" placeholder="Beskrivning" component={renderField} type="text" required/>
                         </FormGroup>
                         <FormGroup>
-                            <Field className="b-input" name="price" placeholder="Pris" component="input" type="number" required/>
+                            <Field name="price" placeholder="Pris" component={renderField} type="number" required/>
                         </FormGroup>
                         <FormGroup>
                             <Button type="submit">
