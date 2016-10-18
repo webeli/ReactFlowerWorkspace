@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import { reset } from 'redux-form';
 
 // Load All Projects
 export function loadAllProjectsSuccess(projects) {
@@ -21,10 +22,11 @@ export function getProducts(uid) {
 }
 
 export function addProduct(uid, data) {
-    return function() {
+    return function(dispatch) {
         const productsRefs = firebase.database().ref('florists').child(uid).child('products');
         productsRefs.push({...data});
-
+        // Clear NewProductForm
+        dispatch(reset('NewProductForm'));
         console.log("Added produkt!"); // TODO: implement toaster service
     }
 }

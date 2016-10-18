@@ -1,36 +1,40 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Button, FormGroup, Modal } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, ControlLabel, Modal } from 'react-bootstrap';
 
 const validate = values => {
-    console.log(values);
     const errors = {};
-    if (!values.name) {
-        errors.name = 'Required'
-    } else if (values.name.length > 15) {
-        errors.name = 'Must be 15 characters or less'
+    const requiredFields = [ 'name', 'image', 'description', 'price' ];
+    requiredFields.forEach(field => {
+        if (!values[ field ]) {
+            errors[ field ] = 'Required'
+        }
+    });
+    if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Invalid email address'
     }
-    if (!values.image) {
-        errors.image = 'Required'
-    }
-    if (!values.description) {
-        errors.description = 'Required'
-    }
-    if (!values.price) {
-        errors.price = 'Required'
-    }
+    console.log(errors);
     return errors
 };
 
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
-    <div>
-        <label>{label}</label>
-        <div>
-            <input className="b-input" {...input} placeholder={label} type={type}/>
+const renderField = ({ input, label, type, meta: { touched, error } }) => {
+    const getValidationState = (touched, error) => {
+        if (touched && error) {
+            return 'error'
+        } else if (touched) {
+            return 'success'
+        }
+        //touched?error?'error':'success':null
+    };
+    return (
+        <FormGroup validationState={getValidationState(touched, error)}>
+            <ControlLabel>{label}</ControlLabel>
+            <FormControl {...input} placeholder={label} type={type}/>
+            <FormControl.Feedback />
             {touched && ((error && <span>{error}</span>))}
-        </div>
-    </div>
-);
+        </FormGroup>
+    )
+};
 
 class ModalNewProductForm extends Component {
 
@@ -42,23 +46,13 @@ class ModalNewProductForm extends Component {
                 </Modal.Header>
                 <Modal.Body>
                     <form onSubmit={this.props.handleSubmit}>
-                        <FormGroup>
-                            <Field name="name" placeholder="Namn" component={renderField} type="text" required/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Field name="image" placeholder="Bild" component={renderField} type="text" required/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Field name="description" placeholder="Beskrivning" component={renderField} type="text" required/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Field name="price" placeholder="Pris" component={renderField} type="number" required/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Button type="submit">
-                                Lägg till
-                            </Button>
-                        </FormGroup>
+                        <Field name="name" label="Namn" component={renderField} type="text" required/>
+                        <Field name="image" label="Bild" component={renderField} type="text" required/>
+                        <Field name="description" label="Beskrivning" component={renderField} type="text" required/>
+                        <Field name="price" label="Pris" component={renderField} type="number" required/>
+                        <Button type="submit">
+                            Lägg till
+                        </Button>
                     </form>
                 </Modal.Body>
             </Modal>
