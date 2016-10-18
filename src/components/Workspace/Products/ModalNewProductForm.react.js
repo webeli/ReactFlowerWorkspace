@@ -4,10 +4,10 @@ import { Button, FormGroup, FormControl, ControlLabel, Modal } from 'react-boots
 
 const validate = values => {
     const errors = {};
-    const requiredFields = [ 'name', 'image', 'description', 'price' ];
+    const requiredFields = [ 'name', 'price', 'color', 'event' ];
     requiredFields.forEach(field => {
         if (!values[ field ]) {
-            errors[ field ] = 'Required'
+            errors[ field ] = 'Behöver fyllas i'
         }
     });
     if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -46,10 +46,12 @@ class ModalNewProductForm extends Component {
                 </Modal.Header>
                 <Modal.Body>
                     <form onSubmit={this.props.handleSubmit}>
-                        <Field name="name" label="Namn" component={renderField} type="text" required/>
-                        <Field name="image" label="Bild" component={renderField} type="text" required/>
-                        <Field name="description" label="Beskrivning" component={renderField} type="text" required/>
-                        <Field name="price" label="Pris" component={renderField} type="number" required/>
+                        <Field name="name" label="Namn *" component={renderField} type="text"/>
+                        <Field name="image" label="Bild" component={renderField} type="text"/>
+                        <Field name="description" label="Beskrivning" component={renderField} type="text"/>
+                        <Field name="color" label="Färg *" component={renderField} type="text"/>
+                        <Field name="event" label="Event *" component={renderField} type="text"/>
+                        <Field name="price" label="Pris *" component={renderField} type="number"/>
                         <Button type="submit">
                             Lägg till
                         </Button>
