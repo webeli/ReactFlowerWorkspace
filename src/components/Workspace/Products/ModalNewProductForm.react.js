@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { connect } from 'react-redux';
 import { Button, FormGroup, FormControl, ControlLabel, Modal } from 'react-bootstrap';
 import Select from 'react-select';
 
@@ -14,7 +15,7 @@ const validate = values => {
     if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
         errors.email = 'Invalid email address'
     }
-    console.log(errors);
+    console.log("errors", errors);
     return errors
 };
 
@@ -37,46 +38,41 @@ const renderInputField = ({ input, label, type, meta: { touched, error } }) => {
     )
 };
 
+const renderMultiSelect = ({ input, options, label, ...rest }) => {
+  return (
+      <FormGroup>
+          <ControlLabel>{label}</ControlLabel>
+          <Select
+              {...input}
+              multi={true}
+              options={options}
+              onBlur={() => input.onBlur()}
+              value={input.value}
+              {...rest}/>
+      </FormGroup>
+  )
+};
 
-export class SelectInput extends Component {
-    onChange(event) {
-        if (this.props.input.onChange) {
-            this.props.input.onChange(event.value); // <-- To be aligned with how redux-form publishes its CHANGE action payload. The event received is an object with 2 keys: "value" and "label"
-        }
-    }
-
-    render() {
-        return (
-            <Select
-                {...this.props}
-                value={this.props.input.value || ''}
-                onBlur={() => this.props.input.onBlur(this.props.input.value)}
-                onChange={this.onChange.bind(this)}
-                options={this.props.options} // <-- Receive options from the form
-            />
-        );
-    }
-}
 
 class ModalNewProductForm extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            options: null
-        };
-    }
-
-    componentWillMount() {
-        this.state = {
-            options: null
-        };
-    }
 
     render() {
         const colorOptions = [
             { value: 'Grön', label: 'Grön' },
-            { value: 'Blå', label: 'Blå' }
+            { value: 'Blå', label: 'Blå' },
+            { value: 'Gul', label: 'Gul' },
+            { value: 'Vit', label: 'Vit' },
+            { value: 'Svart', label: 'Svart' }
+        ];
+
+        const eventOptions = [
+            { value: 'Bröllop', label: 'Bröllop' },
+            { value: 'Födelsedag', label: 'Födelsedag' }
+        ];
+
+        const typeOptions = [
+            { value: 'Ros', label: 'Ros' },
+            { value: 'Tusilago', label: 'Tusilago' }
         ];
 
         return (
@@ -89,9 +85,11 @@ class ModalNewProductForm extends Component {
                         <Field name="name" label="Namn *" component={renderInputField} type="text"/>
                         <Field name="image" label="Bild" component={renderInputField} type="text"/>
                         <Field name="description" label="Beskrivning" component={renderInputField} type="text"/>
-                        <Field name="myReduxFormFieldName" component={props =><SelectInput{...props} multi={true} options={colorOptions}/>}/>
-                        <Field name="event" label="Event *" component={renderInputField} type="text"/>
-                        <Field name="type" label="Type *" component={renderInputField} type="text"/>
+
+                        <Field name="color" label="Färg *" component={renderMultiSelect} options={colorOptions} />
+                        <Field name="event" label="Event *" component={renderMultiSelect} options={eventOptions} />
+                        <Field name="type" label="Typ *" component={renderMultiSelect} options={typeOptions} />
+
                         <Field name="price" label="Pris *" component={renderInputField} type="number"/>
                         <Button type="submit">
                             Lägg till
@@ -107,5 +105,16 @@ ModalNewProductForm = reduxForm({
     form: 'NewProductForm', // a unique name for this form
     validate
 })(ModalNewProductForm);
+
+// Decorate with connect to read form values
+const selector = formValueSelector('NewProductForm'); // <-- same as form name
+ModalNewProductForm = connect(
+    state => {
+        const color = selector(state, 'color');
+        return {
+            color
+        }
+    }
+)(ModalNewProductForm);
 
 export default (ModalNewProductForm);
