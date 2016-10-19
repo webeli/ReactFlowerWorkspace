@@ -28,6 +28,7 @@ export function addProduct(uid, data) {
         const types = Object.assign(...data.types.map(type => ({[type.value]: true})));
         const events = Object.assign(...data.events.map(event => ({[event.value]: true})));
 
+        // TODO: do this in a more beautiful and dynamic way (es6 spread rest operators)
         const newProduct = {
             description:data.description || '',
             image:data.image || '',
