@@ -23,7 +23,6 @@ class Products extends Component {
     }
 
     addProduct = (values) => {
-        console.log("addProduct", values);
         this.props.addProduct(this.props.auth.uid, values);
         this.setState({ modalNewProductForm: false });
     };

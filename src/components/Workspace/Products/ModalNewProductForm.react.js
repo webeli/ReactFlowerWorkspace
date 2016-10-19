@@ -6,7 +6,7 @@ import Select from 'react-select';
 
 const validate = values => {
     const errors = {};
-    const requiredFields = [ 'name', 'price', 'color', 'event', 'type' ];
+    const requiredFields = [ 'name', 'price', 'colors', 'events', 'types' ];
     requiredFields.forEach(field => {
         if (!values[ field ]) {
             errors[ field ] = 'Behöver fyllas i'
@@ -15,7 +15,6 @@ const validate = values => {
     if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
         errors.email = 'Invalid email address'
     }
-    console.log("errors", errors);
     return errors
 };
 
@@ -86,9 +85,9 @@ class ModalNewProductForm extends Component {
                         <Field name="image" label="Bild" component={renderInputField} type="text"/>
                         <Field name="description" label="Beskrivning" component={renderInputField} type="text"/>
 
-                        <Field name="color" label="Färg *" component={renderMultiSelect} options={colorOptions} />
-                        <Field name="event" label="Event *" component={renderMultiSelect} options={eventOptions} />
-                        <Field name="type" label="Typ *" component={renderMultiSelect} options={typeOptions} />
+                        <Field name="colors" label="Färg *" component={renderMultiSelect} options={colorOptions} />
+                        <Field name="events" label="Event *" component={renderMultiSelect} options={eventOptions} />
+                        <Field name="types" label="Typ *" component={renderMultiSelect} options={typeOptions} />
 
                         <Field name="price" label="Pris *" component={renderInputField} type="number"/>
                         <Button type="submit">
@@ -110,9 +109,9 @@ ModalNewProductForm = reduxForm({
 const selector = formValueSelector('NewProductForm'); // <-- same as form name
 ModalNewProductForm = connect(
     state => {
-        const color = selector(state, 'color');
+        const colors = selector(state, 'colors');
         return {
-            color
+            colors
         }
     }
 )(ModalNewProductForm);
