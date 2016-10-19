@@ -61,17 +61,32 @@ class ModalNewProductForm extends Component {
             { value: 'Blå', label: 'Blå' },
             { value: 'Gul', label: 'Gul' },
             { value: 'Vit', label: 'Vit' },
-            { value: 'Svart', label: 'Svart' }
+            { value: 'Svart', label: 'Svart' },
+            { value: 'Orange', label: 'Orange' },
+            { value: 'Lila', label: 'Lila' },
+            { value: 'Rosa', label: 'Rosa' },
+            { value: 'Röd', label: 'Röd' },
+            { value: 'Turkås', label: 'Turkås' }
         ];
 
         const eventOptions = [
             { value: 'Bröllop', label: 'Bröllop' },
-            { value: 'Födelsedag', label: 'Födelsedag' }
+            { value: 'Födelsedag', label: 'Födelsedag' },
+            { value: 'Begravning', label: 'Begravning' },
+            { value: 'Födsel', label: 'Födsel' },
+            { value: 'Midsommar', label: 'Midsommar' },
+            { value: 'Kärlek', label: 'Kärlek' },
+            { value: 'Tack', label: 'Tack' },
+            { value: 'Krya', label: 'Krya' }
         ];
 
         const typeOptions = [
             { value: 'Ros', label: 'Ros' },
-            { value: 'Tusilago', label: 'Tusilago' }
+            { value: 'Tusilago', label: 'Tusilago' },
+            { value: 'Vitsippa', label: 'Vitsippa' },
+            { value: 'Liljor', label: 'Liljor' },
+            { value: 'Orkideer', label: 'Orkideer' },
+            { value: 'Buketter', label: 'Buketter' }
         ];
 
         return (
