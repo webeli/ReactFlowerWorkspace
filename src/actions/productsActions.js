@@ -33,7 +33,7 @@ export function addProduct(uid, data) {
             image:data.image || '',
             name:data.name || '',
             price:data.price || '',
-            attributes:{colors:colors, types:types, events:events}
+            attributes:{colours:colors, types:types, events:events}
         };
 
         productsRefs.push(newProduct);
