@@ -36,16 +36,16 @@ class SettingsDeliveryForm extends Component {
 
                 <h4>Nuvarande Leveransinställningar</h4>
                 <FormGroup>
-                    <FormControl type="text" value={this.props.settingsDelivery.adress} disabled/>
+                    <FormControl type="text" value={'(Adress) '+this.props.settingsDelivery.adress} disabled/>
                 </FormGroup>
                 <FormGroup>
-                    <FormControl type="text" value={this.props.settingsDelivery.latitude} disabled/>
+                    <FormControl type="text" value={'(Latitude) '+this.props.settingsDelivery.latitude} disabled/>
                 </FormGroup>
                 <FormGroup>
-                    <FormControl type="text" value={this.props.settingsDelivery.longitude} disabled/>
+                    <FormControl type="text" value={'(Longitude) '+this.props.settingsDelivery.longitude} disabled/>
                 </FormGroup>
                 <FormGroup>
-                    <FormControl type="text" value={this.props.settingsDelivery.radius} disabled/>
+                    <FormControl type="text" value={'(Radius) '+this.props.settingsDelivery.radius+' km'} disabled/>
                 </FormGroup>
             </div>
         );
