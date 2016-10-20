@@ -34,10 +34,13 @@ export function getSettingsDelivery(uid) {
 
 export function updateSettingsDelivery(uid, data) {
     return function() {
+        const geo = data.newGeo;
+        const newData = {latitude:geo.location.lat, longitude:geo.location.lng, radius:data.newRadius, adress:geo.label};
+
         const settingsDeliveryRef1 = firebase.database().ref('florists').child(uid).child('settings_delivery');
-        settingsDeliveryRef1.set({...data});
+        settingsDeliveryRef1.set({...newData});
         const settingsDeliveryRef2 = firebase.database().ref('settings_delivery').child(uid);
-        settingsDeliveryRef2.set({...data});
+        settingsDeliveryRef2.set({...newData});
         console.log("Updated settings delivery!"); // TODO: implement toaster service
     }
 }

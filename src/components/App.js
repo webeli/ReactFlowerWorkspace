@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route, browserHistory } from 'react-router';
 import './../styles/App.css';
+import './../styles/geosuggest.css';
 
 import Login from './Login/Login.react';
 import Register from './Register/Register.react';
