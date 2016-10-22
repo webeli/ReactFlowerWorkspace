@@ -14,13 +14,13 @@ class Dashboard extends Component {
                 <Col xs={12} md={2}>
                     <Well>
                         <h4>Ordrar</h4>
-                        5
+                        0
                     </Well>
                 </Col>
                 <Col xs={12} md={2}>
                     <Well>
                         <h4>Produkter</h4>
-                        5
+                        0
                     </Well>
                 </Col>
                 <Col xs={12} md={2}>
